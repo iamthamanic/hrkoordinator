@@ -11,7 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/ta
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../components/ui/select';
 import { toast } from 'sonner@2.0.3';
 import { Workflow, WorkflowTriggerType } from '../../types/workflow';
-import { projectId, publicAnonKey } from '../../utils/supabase/info';
+import { supabaseUrl, publicAnonKey } from '../../utils/supabase/info';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from 'recharts';
 import { getTriggerBadge, getTriggerLabel } from '../../utils/workflowHelpers';
 
@@ -94,7 +94,7 @@ export default function WorkflowsScreen() {
     const fetchData = async () => {
       try {
         // Fetch Workflows
-        const workflowsResponse = await fetch(`https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Workflows/workflows`, {
+        const workflowsResponse = await fetch(`${supabaseUrl}/functions/v1/BrowoKoordinator-Workflows/workflows`, {
           headers: {
             'Authorization': `Bearer ${publicAnonKey}`,
           }
@@ -112,7 +112,7 @@ export default function WorkflowsScreen() {
         }
 
         // Fetch Executions
-        const executionsResponse = await fetch(`https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Workflows/executions`, {
+        const executionsResponse = await fetch(`${supabaseUrl}/functions/v1/BrowoKoordinator-Workflows/executions`, {
           headers: {
             'Authorization': `Bearer ${publicAnonKey}`,
           }
@@ -169,7 +169,7 @@ export default function WorkflowsScreen() {
       
       // Real workflow - call API
       try {
-        const response = await fetch(`https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Workflows/workflows/${id}`, {
+        const response = await fetch(`${supabaseUrl}/functions/v1/BrowoKoordinator-Workflows/workflows/${id}`, {
             method: 'DELETE',
             headers: {
               'Authorization': `Bearer ${publicAnonKey}`,
@@ -185,7 +185,7 @@ export default function WorkflowsScreen() {
            // Rollback optimistic update
            const fetchData = async () => {
              try {
-               const workflowsResponse = await fetch(`https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Workflows/workflows`, {
+               const workflowsResponse = await fetch(`${supabaseUrl}/functions/v1/BrowoKoordinator-Workflows/workflows`, {
                  headers: { 'Authorization': `Bearer ${publicAnonKey}` }
                });
                if (workflowsResponse.ok) {
@@ -206,7 +206,7 @@ export default function WorkflowsScreen() {
          // Rollback optimistic update
          const fetchData = async () => {
            try {
-             const workflowsResponse = await fetch(`https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Workflows/workflows`, {
+             const workflowsResponse = await fetch(`${supabaseUrl}/functions/v1/BrowoKoordinator-Workflows/workflows`, {
                headers: { 'Authorization': `Bearer ${publicAnonKey}` }
              });
              if (workflowsResponse.ok) {

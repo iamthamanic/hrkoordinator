@@ -6,7 +6,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Plus, Key, Edit2, Trash2, Eye, EyeOff, Save, X, AlertCircle } from '../../components/icons/BrowoKoIcons';
-import { projectId, publicAnonKey } from '../../utils/supabase/info';
+import { supabaseUrl, publicAnonKey } from '../../utils/supabase/info';
 
 // Local types matching backend
 interface EnvironmentVariable {
@@ -51,7 +51,7 @@ export default function EnvironmentVariablesScreen() {
     
     try {
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Workflows/env-vars`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-Workflows/env-vars`,
         {
           headers: {
             'Authorization': `Bearer ${publicAnonKey}`,
@@ -87,7 +87,7 @@ export default function EnvironmentVariablesScreen() {
 
     try {
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Workflows/env-vars`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-Workflows/env-vars`,
         {
           method: 'POST',
           headers: {
@@ -116,7 +116,7 @@ export default function EnvironmentVariablesScreen() {
   const handleUpdate = async (id: string) => {
     try {
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Workflows/env-vars/${id}`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-Workflows/env-vars/${id}`,
         {
           method: 'PUT',
           headers: {
@@ -147,7 +147,7 @@ export default function EnvironmentVariablesScreen() {
 
     try {
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Workflows/env-vars/${id}`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-Workflows/env-vars/${id}`,
         {
           method: 'DELETE',
           headers: {

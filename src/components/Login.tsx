@@ -13,6 +13,7 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [errorDetail, setErrorDetail] = useState('');
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const { user, login, loading, initialized, connectionError } = useAuthStore();
 
@@ -37,6 +38,7 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setErrorDetail('');
 
     try {
       // ✅ SANITIZE EMAIL (Phase 4 - Priority 2)
@@ -53,14 +55,18 @@ export default function Login() {
       navigate('/dashboard', { replace: true });
     } catch (err: any) {
       console.error('Login error:', err);
-      
-      // Better error messages
-      if (err.message?.includes('Invalid login credentials')) {
+      const msg = String(err?.message ?? '');
+
+      // Better error messages (German)
+      setErrorDetail(msg || (err ? String(err) : ''));
+      if (msg.includes('Invalid login credentials') || msg.includes('invalid_credentials')) {
         setError('E-Mail oder Passwort falsch.');
-      } else if (err.message?.includes('Email not confirmed')) {
-        setError('⚠️ Email-Bestätigung erforderlich! Bitte führe die Migration 004_disable_email_confirmation.sql aus oder deaktiviere Email-Bestätigung in Supabase Dashboard → Authentication → Settings.');
+      } else if (msg.includes('Email not confirmed') || msg.includes('email_not_confirmed')) {
+        setError('E-Mail noch nicht bestätigt. Im Supabase Dashboard unter Authentication → Providers „Confirm email“ deaktivieren oder Bestätigungs-Mail nutzen.');
+      } else if (msg.includes('Failed to fetch') || msg.includes('fetch') || msg.includes('network') || msg.includes('Verbindung')) {
+        setError('Verbindung fehlgeschlagen. Ist das Supabase-Projekt aktiv? Im Dashboard prüfen und ggf. „Restore“ klicken (Projekt war pausiert).');
       } else {
-        setError(err.message || 'Login fehlgeschlagen');
+        setError(msg || 'Login fehlgeschlagen. Browser-Konsole (F12) für Details öffnen.');
       }
     }
   };
@@ -87,9 +93,21 @@ export default function Login() {
             <h2 className="text-[24px] font-semibold text-[#101828] leading-[32px] mb-6">Anmelden</h2>
 
             {error && (
-              <Alert variant="destructive" className="mb-4">
-                <AlertDescription>{error}</AlertDescription>
-              </Alert>
+              <div className="mb-4">
+                <Alert variant="destructive">
+                  <AlertDescription>{error}</AlertDescription>
+                </Alert>
+                {errorDetail && errorDetail !== error && (
+                  <details className="mt-2">
+                    <summary className="text-[11px] text-[#717182] cursor-pointer hover:text-[#101828]">
+                      Technische Details
+                    </summary>
+                    <pre className="mt-1 p-2 bg-[#f3f3f5] rounded text-[11px] text-[#4a5565] overflow-auto max-h-24">
+                      {errorDetail}
+                    </pre>
+                  </details>
+                )}
+              </div>
             )}
 
             <form onSubmit={handleSubmit} className="space-y-4">

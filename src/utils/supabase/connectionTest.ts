@@ -1,5 +1,5 @@
 import { supabase } from './client';
-import { projectId } from './info';
+import { supabaseUrl } from './info';
 
 /**
  * Test Supabase connection
@@ -7,8 +7,7 @@ import { projectId } from './info';
  */
 export async function testSupabaseConnection(): Promise<boolean> {
   console.log('🔍 Testing Supabase connection...');
-  console.log('📍 Project ID:', projectId);
-  console.log('🔗 URL:', `https://${projectId}.supabase.co`);
+  console.log('🔗 URL:', supabaseUrl);
   
   try {
     // Try a simple health check

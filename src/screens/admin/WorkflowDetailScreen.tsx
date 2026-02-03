@@ -29,7 +29,7 @@ import { Input } from '../../components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs';
 import { Badge } from '../../components/ui/badge';
 import { toast } from 'sonner@2.0.3';
-import { projectId } from '../../utils/supabase/info';
+import { supabaseUrl } from '../../utils/supabase/info';
 import { getAuthHeaders } from '../../utils/authHelpers';
 
 // Custom Nodes
@@ -189,7 +189,7 @@ const WorkflowDetailScreen = () => {
         // Fetch workflow definition
         const headers = await getAuthHeaders();
         const workflowResponse = await fetch(
-          `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Workflows/workflows/${workflowId}`,
+          `${supabaseUrl}/functions/v1/BrowoKoordinator-Workflows/workflows/${workflowId}`,
           { headers }
         );
 
@@ -204,7 +204,7 @@ const WorkflowDetailScreen = () => {
 
         // Fetch executions for this workflow
         const executionsResponse = await fetch(
-          `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Workflows/executions`,
+          `${supabaseUrl}/functions/v1/BrowoKoordinator-Workflows/executions`,
           { headers }
         );
 
@@ -380,7 +380,7 @@ const WorkflowDetailScreen = () => {
 
       try {
         const headers = await getAuthHeaders();
-        const response = await fetch(`https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Workflows/workflows`, {
+        const response = await fetch(`${supabaseUrl}/functions/v1/BrowoKoordinator-Workflows/workflows`, {
           method: 'POST',
           headers,
           body: JSON.stringify(workflowData)
@@ -411,7 +411,7 @@ const WorkflowDetailScreen = () => {
     try {
       const headers = await getAuthHeaders();
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Workflows/workflows/${workflowId}/execute`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-Workflows/workflows/${workflowId}/execute`,
         {
           method: 'POST',
           headers,

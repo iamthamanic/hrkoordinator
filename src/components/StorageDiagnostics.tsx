@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { CheckCircle, XCircle, AlertCircle, RefreshCw } from './icons/BrowoKoIcons';
-import { projectId, publicAnonKey } from '../utils/supabase/info';
+import { supabaseUrl, publicAnonKey } from '../utils/supabase/info';
 
 interface BucketInfo {
   name: string;
@@ -28,7 +28,7 @@ export default function StorageDiagnostics() {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Server/storage/status`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-Server/storage/status`,
         {
           headers: {
             'Authorization': `Bearer ${publicAnonKey}`,

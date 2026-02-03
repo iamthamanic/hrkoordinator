@@ -28,7 +28,7 @@ import { FEDERAL_STATES } from '../hooks/useGermanHolidays';
 import { LeaveType } from '../types/database';
 import { toast } from 'sonner@2.0.3';
 import { supabase } from '../utils/supabase/client';
-import { projectId, publicAnonKey } from '../utils/supabase/info';
+import { supabaseUrl, publicAnonKey } from '../utils/supabase/info';
 import sanitize from '../utils/security/BrowoKo_sanitization';
 
 interface RequestLeaveDialogProps {
@@ -139,7 +139,7 @@ export default function RequestLeaveDialog({
       formData.append('userId', selectedUserId);
 
       const uploadResponse = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Server/documents/upload`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-Server/documents/upload`,
         {
           method: 'POST',
           headers: {

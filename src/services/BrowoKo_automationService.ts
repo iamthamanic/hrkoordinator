@@ -6,7 +6,7 @@
 // ============================================================================
 
 import { supabase } from '../utils/supabase/client';
-import { projectId } from '../utils/supabase/info';
+import { supabaseUrl } from '../utils/supabase/info';
 
 // Supabase client is already imported as singleton
 
@@ -60,8 +60,7 @@ class AutomationService {
   private baseUrl: string;
 
   constructor() {
-    // Edge Function Base URL - Use projectId from info.tsx
-    const supabaseUrl = `https://${projectId}.supabase.co`;
+    // Edge Function Base URL (lokal oder Env)
     this.baseUrl = `${supabaseUrl}/functions/v1/BrowoKoordinator-Automation`;
   }
 

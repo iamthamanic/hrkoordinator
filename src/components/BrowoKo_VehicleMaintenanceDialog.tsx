@@ -90,7 +90,7 @@ export function VehicleMaintenanceDialog({
     setSaving(true);
 
     try {
-      const { projectId, publicAnonKey } = await import('../utils/supabase/info');
+      const { supabaseUrl, publicAnonKey } = await import('../utils/supabase/info');
       
       const body = {
         title: title.trim(),
@@ -102,8 +102,8 @@ export function VehicleMaintenanceDialog({
 
       const isEdit = !!maintenance?.id;
       const url = isEdit
-        ? `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Fahrzeuge/api/vehicles/${vehicleId}/maintenances/${maintenance.id}`
-        : `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Fahrzeuge/api/vehicles/${vehicleId}/maintenances`;
+        ? `${supabaseUrl}/functions/v1/BrowoKoordinator-Fahrzeuge/api/vehicles/${vehicleId}/maintenances/${maintenance.id}`
+        : `${supabaseUrl}/functions/v1/BrowoKoordinator-Fahrzeuge/api/vehicles/${vehicleId}/maintenances`;
 
       const response = await fetch(url, {
         method: isEdit ? 'PUT' : 'POST',

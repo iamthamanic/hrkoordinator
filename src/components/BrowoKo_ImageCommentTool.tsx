@@ -10,11 +10,11 @@ import { Textarea } from './ui/textarea';
 import { Badge } from './ui/badge';
 import { MessageSquare, X, Send, Image as ImageIcon, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
-import { projectId, publicAnonKey } from '../utils/supabase/info';
+import { supabaseUrl, publicAnonKey } from '../utils/supabase/info';
 import { useAuthStore } from '../stores/BrowoKo_authStore';
 import type { ReviewComment } from '../types/schemas/BrowoKo_learningSchemas';
 
-const API_URL = `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Server`;
+const API_URL = `${supabaseUrl}/functions/v1/BrowoKoordinator-Server`;
 
 interface ImageCommentToolProps {
   block: any;

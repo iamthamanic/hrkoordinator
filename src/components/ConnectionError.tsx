@@ -30,7 +30,7 @@ export default function ConnectionError({ onRetry }: ConnectionErrorProps) {
             </p>
             <p className="text-xs font-medium text-red-900 mb-2">🔍 Mögliche Ursachen:</p>
             <ul className="text-xs text-red-700 space-y-1">
-              <li><strong>1. Supabase-Projekt ist PAUSIERT</strong> (häufigste Ursache!)</li>
+              <li><strong>1. Lokal: Supabase nicht gestartet</strong> → <code>supabase start</code></li>
               <li>2. Netzwerk- oder Firewall-Probleme</li>
               <li>3. Ungültige API-Konfiguration</li>
               <li>4. CORS-Konfigurationsfehler</li>
@@ -40,20 +40,9 @@ export default function ConnectionError({ onRetry }: ConnectionErrorProps) {
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6 text-left">
             <p className="text-xs font-bold text-blue-900 mb-2">✅ Lösung:</p>
             <ol className="text-xs text-blue-700 space-y-2">
-              <li>
-                <strong>1.</strong> Öffne{' '}
-                <a
-                  href="https://supabase.com/dashboard/project/azmtojgikubegzusvhra"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline font-bold hover:text-blue-900"
-                >
-                  dein Supabase Dashboard
-                </a>
-              </li>
-              <li><strong>2.</strong> Falls "Project paused" angezeigt wird → klicke "Restore"</li>
-              <li><strong>3.</strong> Warte ~30 Sekunden</li>
-              <li><strong>4.</strong> Klicke unten auf "Erneut versuchen"</li>
+              <li><strong>1.</strong> Lokal: Prüfe ob Supabase läuft (<code>supabase status</code>)</li>
+              <li><strong>2.</strong> Prüfe .env: VITE_SUPABASE_URL und VITE_SUPABASE_ANON_KEY (von <code>supabase start</code>)</li>
+              <li><strong>3.</strong> Klicke unten auf „Erneut versuchen“</li>
             </ol>
           </div>
           

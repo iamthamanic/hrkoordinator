@@ -13,7 +13,7 @@ import { BrowoKo_TaskModal } from '../components/BrowoKo_TaskModal';
 import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { useAuthStore } from '../stores/BrowoKo_authStore';
-import { projectId, publicAnonKey } from '../utils/supabase/info';
+import { supabaseUrl, publicAnonKey } from '../utils/supabase/info';
 
 interface Board {
   id: string;
@@ -101,7 +101,7 @@ export default function TasksScreen() {
       const token = await getAuthToken();
       
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Tasks/tasks?team_id=${boardId}`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-Tasks/tasks?team_id=${boardId}`,
         {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -151,7 +151,7 @@ export default function TasksScreen() {
       const token = await getAuthToken();
       
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Tasks/tasks/${taskId}`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-Tasks/tasks/${taskId}`,
         {
           method: 'PUT',
           headers: {

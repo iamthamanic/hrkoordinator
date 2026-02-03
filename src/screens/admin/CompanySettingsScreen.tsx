@@ -5,7 +5,7 @@ import { useAuthStore } from '../../stores/BrowoKo_authStore';
 import { useAdminStore } from '../../stores/BrowoKo_adminStore';
 import { Organization } from '../../types/database';
 import { supabase } from '../../utils/supabase/client';
-import { projectId, publicAnonKey } from '../../utils/supabase/info';
+import { supabaseUrl, publicAnonKey } from '../../utils/supabase/info';
 import StorageDiagnostics from '../../components/StorageDiagnostics';
 import { ChevronDown, ChevronUp } from '../../components/icons/BrowoKoIcons';
 import { Button } from '../../components/ui/button';

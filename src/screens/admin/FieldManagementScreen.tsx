@@ -49,10 +49,10 @@ export default function FieldManagementScreen() {
   // Save vehicle via PostgreSQL API
   const handleSaveVehicle = async (vehicleData: VehicleFormData) => {
     try {
-      const { projectId, publicAnonKey } = await import('../utils/supabase/info');
+      const { supabaseUrl, publicAnonKey } = await import('../utils/supabase/info');
       
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Fahrzeuge/api/vehicles`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-Fahrzeuge/api/vehicles`,
         {
           method: 'POST',
           headers: {
@@ -120,12 +120,12 @@ export default function FieldManagementScreen() {
     }
 
     try {
-      const { projectId, publicAnonKey } = await import('../utils/supabase/info');
+      const { supabaseUrl, publicAnonKey } = await import('../utils/supabase/info');
       
       // Delete all selected vehicles
       const deletePromises = selectedVehicles.map(vehicleId =>
         fetch(
-          `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Fahrzeuge/api/vehicles/${vehicleId}`,
+          `${supabaseUrl}/functions/v1/BrowoKoordinator-Fahrzeuge/api/vehicles/${vehicleId}`,
           {
             method: 'DELETE',
             headers: {

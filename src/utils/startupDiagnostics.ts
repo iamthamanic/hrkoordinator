@@ -1,4 +1,4 @@
-import { projectId, publicAnonKey } from './supabase/info';
+import { supabaseUrl, publicAnonKey } from './supabase/info';
 
 /**
  * Run startup diagnostics to check if everything is configured correctly
@@ -10,24 +10,20 @@ export async function runStartupDiagnostics() {
     console.log('═'.repeat(50));
   
   // 1. Check Project ID
-  console.log('📋 Project ID:', projectId);
-  if (!projectId || projectId === 'YOUR_PROJECT_ID') {
-    console.error('❌ Invalid project ID!');
+  console.log('🔗 Supabase URL:', supabaseUrl);
+  if (!supabaseUrl) {
+    console.error('❌ Supabase URL fehlt!');
     return false;
   }
-  console.log('✅ Project ID looks valid');
+  console.log('✅ Supabase URL gesetzt');
   
   // 2. Check Anon Key
-  console.log('🔑 Anon Key:', publicAnonKey.substring(0, 20) + '...');
+  console.log('🔑 Anon Key:', publicAnonKey ? publicAnonKey.substring(0, 20) + '...' : '(nicht gesetzt)');
   if (!publicAnonKey || publicAnonKey.length < 20) {
-    console.error('❌ Invalid anon key!');
+    console.error('❌ Anon Key fehlt oder ungültig – bitte .env mit VITE_SUPABASE_ANON_KEY (von `supabase start`) setzen');
     return false;
   }
-  console.log('✅ Anon key looks valid');
-  
-  // 3. Check Supabase URL
-  const supabaseUrl = `https://${projectId}.supabase.co`;
-  console.log('🔗 Supabase URL:', supabaseUrl);
+  console.log('✅ Anon key gesetzt');
   
   // 4. Test network connection
   console.log('🌐 Testing network connection...');

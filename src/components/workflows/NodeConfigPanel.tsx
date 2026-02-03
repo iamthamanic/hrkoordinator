@@ -13,7 +13,7 @@ import { Textarea } from '../ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { Card } from '../ui/card';
 import { Badge } from '../ui/badge';
-import { projectId, publicAnonKey } from '../../utils/supabase/info';
+import { supabaseUrl, publicAnonKey } from '../../utils/supabase/info';
 import { supabase } from '../../utils/supabase/client';
 import { TriggerConfigForm } from './TriggerConfigForm';
 
@@ -102,7 +102,7 @@ export default function NodeConfigPanel({ node, onClose, onUpdateNode }: NodeCon
       }
       
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Personalakte/employees`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-Personalakte/employees`,
         {
           headers: {
             'Authorization': `Bearer ${session.access_token}`,
@@ -140,7 +140,7 @@ export default function NodeConfigPanel({ node, onClose, onUpdateNode }: NodeCon
       }
       
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Benefits/browse`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-Benefits/browse`,
         {
           headers: {
             'Authorization': `Bearer ${session.access_token}`,
@@ -177,7 +177,7 @@ export default function NodeConfigPanel({ node, onClose, onUpdateNode }: NodeCon
       }
       
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Dokumente/documents`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-Dokumente/documents`,
         {
           headers: {
             'Authorization': `Bearer ${session.access_token}`,
@@ -214,7 +214,7 @@ export default function NodeConfigPanel({ node, onClose, onUpdateNode }: NodeCon
       }
       
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-EmailTemplates/templates`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-EmailTemplates/templates`,
         {
           headers: {
             'Authorization': `Bearer ${session.access_token}`,

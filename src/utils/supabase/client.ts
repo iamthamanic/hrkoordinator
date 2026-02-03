@@ -1,9 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
-import { projectId, publicAnonKey } from './info';
+import { supabaseUrl, publicAnonKey } from './info';
 
-const supabaseUrl = `https://${projectId}.supabase.co`;
-
-// Initialize Supabase client - SINGLETON
+// Initialize Supabase client - SINGLETON (lokal oder über Env)
 export const supabase = createClient(supabaseUrl, publicAnonKey);
 
 // Validate and log client initialization

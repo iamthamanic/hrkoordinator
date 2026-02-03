@@ -23,10 +23,27 @@ import {
   ValidationError,
   ApiError,
 } from "../services/base/ApiError";
-import {
-  projectId,
-  publicAnonKey,
-} from "../utils/supabase/info";
+import { projectId } from "../utils/supabase/info";
+
+let authStateChangeUnsubscribe: (() => void) | null = null;
+
+function setupAuthStateListener(set: (s: Partial<AuthState>) => void) {
+  if (authStateChangeUnsubscribe) return;
+  authStateChangeUnsubscribe = supabase.auth.onAuthStateChange((event, session) => {
+    if (event === "SIGNED_OUT") {
+      set({
+        user: null,
+        profile: null,
+        organization: null,
+        effectivePermissions: [],
+      });
+    } else if (event === "TOKEN_REFRESHED" || event === "USER_UPDATED") {
+      if (session?.user) {
+        set({ user: session.user, connectionError: false });
+      }
+    }
+  });
+}
 
 interface AuthState {
   user: AuthUser | null;
@@ -95,9 +112,22 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       if (user) {
         console.log("✅ Login successful");
         set({ user, connectionError: false });
-        await get().refreshProfile();
-        await get().refreshOrganization();
-        await get().refreshPermissions();
+        // Profile/Org/Perms laden – Fehler brechen Login NICHT ab (User ist bereits angemeldet)
+        try {
+          await get().refreshProfile();
+        } catch (profileErr: any) {
+          console.warn("⚠️ Profile nach Login nicht geladen, fahre fort:", profileErr?.message);
+        }
+        try {
+          await get().refreshOrganization();
+        } catch (orgErr: any) {
+          console.warn("⚠️ Organisation nach Login nicht geladen:", orgErr?.message);
+        }
+        try {
+          await get().refreshPermissions();
+        } catch (permErr: any) {
+          console.warn("⚠️ Berechtigungen nach Login nicht geladen:", permErr?.message);
+        }
       }
     } catch (error: any) {
       console.error("❌ Login failed:", error);
@@ -121,13 +151,12 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         throw new Error(
           "Ungültige Eingabedaten. Bitte überprüfen Sie Ihre Eingaben.",
         );
-      } else if (error instanceof ApiError) {
-        throw new Error(error.message);
-      } else {
-        throw new Error(
-          "Login fehlgeschlagen. Bitte versuchen Sie es erneut.",
-        );
       }
+      // Original-Fehlermeldung durchreichen (z. B. Supabase „Invalid login credentials“)
+      if (error instanceof ApiError) {
+        throw new Error(error.message);
+      }
+      throw error instanceof Error ? error : new Error(error?.message ?? "Login fehlgeschlagen.");
     } finally {
       set({ loading: false });
     }
@@ -256,6 +285,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       }
 
       set({ initialized: true });
+      setupAuthStateListener(set);
       console.log("✅ Auth: Initialization complete");
     } catch (error: any) {
       console.error(
@@ -289,7 +319,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         console.error("This usually means:");
         console.error("1. Supabase project is PAUSED");
         console.error(
-          "   → https://supabase.com/dashboard/project/azmtojgikubegzusvhra",
+          "   → Lokal: Supabase mit `supabase start` starten und .env setzen",
         );
         console.error("2. Network/Firewall blocking requests");
         console.error("3. CORS configuration issue");

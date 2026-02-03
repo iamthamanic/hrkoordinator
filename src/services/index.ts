@@ -5,14 +5,14 @@
  * 
  * Usage:
  * ```typescript
- * import { AuthService, createServices } from '../services';
- * 
- * const services = createServices(supabase);
- * const user = await services.auth.signIn(email, password);
+ * import { getServices } from '../services';
+ * const services = getServices();
+ * await services.auth.signIn(email, password);
  * ```
  */
 
 import { SupabaseClient } from '@supabase/supabase-js';
+import { supabase } from '../utils/supabase/client';
 
 // Base exports
 export * from './base/ApiError';
@@ -29,6 +29,18 @@ export { DocumentService } from './BrowoKo_documentService';
 export { DocumentAuditService } from './BrowoKo_documentAuditService';
 export { AnnouncementService } from './BrowoKo_announcementService';
 export { RealtimeService } from './BrowoKo_realtimeService';
+
+// ESM imports for createServices (Vite/browser has no require())
+import { AuthService } from './BrowoKo_authService';
+import { UserService } from './BrowoKo_userService';
+import { TeamService } from './BrowoKo_teamService';
+import { LeaveService } from './BrowoKo_leaveService';
+import { LearningService } from './BrowoKo_learningService';
+import { OrganigramService } from './BrowoKo_organigramService';
+import { DocumentService } from './BrowoKo_documentService';
+import { DocumentAuditService } from './BrowoKo_documentAuditService';
+import { AnnouncementService } from './BrowoKo_announcementService';
+import { RealtimeService } from './BrowoKo_realtimeService';
 
 // Services container type
 export interface Services {
@@ -51,29 +63,18 @@ export interface Services {
  * 
  * This ensures all services share the same Supabase client instance.
  */
-export function createServices(supabase: SupabaseClient): Services {
-  const { AuthService } = require('./BrowoKo_authService');
-  const { UserService } = require('./BrowoKo_userService');
-  const { TeamService } = require('./BrowoKo_teamService');
-  const { LeaveService } = require('./BrowoKo_leaveService');
-  const { LearningService } = require('./BrowoKo_learningService');
-  const { OrganigramService } = require('./BrowoKo_organigramService');
-  const { DocumentService } = require('./BrowoKo_documentService');
-  const { DocumentAuditService } = require('./BrowoKo_documentAuditService');
-  const { AnnouncementService } = require('./BrowoKo_announcementService');
-  const { RealtimeService } = require('./BrowoKo_realtimeService');
-  
+export function createServices(client: SupabaseClient): Services {
   return {
-    auth: new AuthService(supabase),
-    user: new UserService(supabase),
-    team: new TeamService(supabase),
-    leave: new LeaveService(supabase),
-    learning: new LearningService(supabase),
-    organigram: new OrganigramService(supabase),
-    document: new DocumentService(supabase),
-    documentAudit: new DocumentAuditService(supabase),
-    announcement: new AnnouncementService(supabase),
-    realtime: new RealtimeService(supabase),
+    auth: new AuthService(client),
+    user: new UserService(client),
+    team: new TeamService(client),
+    leave: new LeaveService(client),
+    learning: new LearningService(client),
+    organigram: new OrganigramService(client),
+    document: new DocumentService(client),
+    documentAudit: new DocumentAuditService(client),
+    announcement: new AnnouncementService(client),
+    realtime: new RealtimeService(client),
   };
 }
 
@@ -91,41 +92,14 @@ export function createServices(supabase: SupabaseClient): Services {
  * ```
  */
 let servicesInstance: Services | null = null;
-let supabaseClient: SupabaseClient | null = null;
 
 export function getServices(): Services {
   if (!servicesInstance) {
-    console.log('[getServices] 🔄 Initializing services...');
-    
-    // Lazy load the supabase client to avoid circular dependencies
-    if (!supabaseClient) {
-      console.log('[getServices] 📦 Loading Supabase client...');
-      try {
-        const clientModule = require('../utils/supabase/client');
-        supabaseClient = clientModule.supabase;
-        console.log('[getServices] ✅ Client loaded:', {
-          hasClient: !!supabaseClient,
-          hasFrom: typeof supabaseClient?.from === 'function',
-        });
-      } catch (error) {
-        console.error('[getServices] ❌ Failed to load client:', error);
-        throw new Error('Failed to load Supabase client');
-      }
+    if (!supabase || typeof supabase.from !== 'function') {
+      console.error('[getServices] ❌ Supabase client invalid');
+      throw new Error('Supabase client not available');
     }
-    
-    if (!supabaseClient) {
-      console.error('[getServices] ❌ FATAL: Supabase client is undefined!');
-      throw new Error('Supabase client initialization failed - client is undefined');
-    }
-    
-    if (typeof supabaseClient.from !== 'function') {
-      console.error('[getServices] ❌ FATAL: Supabase client is invalid!', supabaseClient);
-      throw new Error('Supabase client initialization failed - missing required methods');
-    }
-    
-    console.log('[getServices] ✅ Creating services with validated client...');
-    servicesInstance = createServices(supabaseClient);
-    console.log('[getServices] ✅ Services created successfully!');
+    servicesInstance = createServices(supabase);
   }
   return servicesInstance;
 }

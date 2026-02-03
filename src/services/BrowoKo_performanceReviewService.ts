@@ -5,10 +5,10 @@
  */
 
 import { SupabaseClient } from '@supabase/supabase-js';
-import { projectId, publicAnonKey } from '../utils/supabase/info';
+import { supabaseUrl, publicAnonKey } from '../utils/supabase/info';
 
 // Performance Reviews are served by BrowoKoordinator-Server
-const EDGE_FUNCTION_URL = `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Server/api/performance-reviews`;
+const EDGE_FUNCTION_URL = `${supabaseUrl}/functions/v1/BrowoKoordinator-Server/api/performance-reviews`;
 
 export interface Question {
   id: string;

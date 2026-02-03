@@ -9,7 +9,7 @@ import { Checkbox } from '../../ui/checkbox';
 import { Badge } from '../../ui/badge';
 import { Network, Loader2 } from '../../icons/BrowoKoIcons';
 import { toast } from 'sonner@2.0.3';
-import { projectId, publicAnonKey } from '../../../utils/supabase/info';
+import { supabaseUrl, publicAnonKey } from '../../../utils/supabase/info';
 import { getTriggerBadge } from '../../../utils/workflowHelpers';
 
 interface Workflow {
@@ -37,7 +37,7 @@ export default function Step4_WorkflowZuweisung({ formData, onUpdate }: Step4Pro
     setLoading(true);
     try {
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Workflows/workflows`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-Workflows/workflows`,
         {
           headers: {
             'Authorization': `Bearer ${publicAnonKey}`,

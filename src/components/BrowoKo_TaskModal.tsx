@@ -12,7 +12,7 @@ import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
 import { useAuthStore } from '../stores/BrowoKo_authStore';
-import { projectId, publicAnonKey } from '../utils/supabase/info';
+import { supabaseUrl, publicAnonKey } from '../utils/supabase/info';
 
 interface Task {
   id: string;
@@ -79,8 +79,8 @@ export function BrowoKo_TaskModal({ task, boardId, onClose, onSave }: TaskModalP
       };
 
       const url = isEditMode
-        ? `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Tasks/tasks/${task.id}`
-        : `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Tasks/tasks`;
+        ? `${supabaseUrl}/functions/v1/BrowoKoordinator-Tasks/tasks/${task.id}`
+        : `${supabaseUrl}/functions/v1/BrowoKoordinator-Tasks/tasks`;
 
       const response = await fetch(url, {
         method: isEditMode ? 'PUT' : 'POST',
@@ -115,7 +115,7 @@ export function BrowoKo_TaskModal({ task, boardId, onClose, onSave }: TaskModalP
       const token = await getAuthToken();
       
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Tasks/tasks/${task.id}`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-Tasks/tasks/${task.id}`,
         {
           method: 'DELETE',
           headers: {

@@ -71,7 +71,7 @@ export function VehicleDocumentUploadDialog({
       // TODO: Implement actual file upload to Supabase Storage
       // For now, we'll just create database records
       
-      const { projectId, publicAnonKey } = await import('../utils/supabase/info');
+      const { supabaseUrl, publicAnonKey } = await import('../utils/supabase/info');
       
       for (const file of files) {
         // In production, upload to Supabase Storage first
@@ -81,7 +81,7 @@ export function VehicleDocumentUploadDialog({
         
         // Create document record
         const response = await fetch(
-          `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Fahrzeuge/api/vehicles/${vehicleId}/documents`,
+          `${supabaseUrl}/functions/v1/BrowoKoordinator-Fahrzeuge/api/vehicles/${vehicleId}/documents`,
           {
             method: 'POST',
             headers: {

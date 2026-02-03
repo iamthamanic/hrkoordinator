@@ -5,7 +5,7 @@
  */
 
 import { useState, useEffect, useCallback } from 'react';
-import { projectId, publicAnonKey } from '../utils/supabase/info';
+import { supabaseUrl, publicAnonKey } from '../utils/supabase/info';
 
 export interface Vehicle {
   id: string;
@@ -56,7 +56,7 @@ export const useVehicleSearch = (searchQuery: string, debounceMs: number = 300) 
         ? `/api/vehicles/search?q=${encodeURIComponent(query)}`
         : '/api/vehicles';
 
-      const url = `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Fahrzeuge${endpoint}`;
+      const url = `${supabaseUrl}/functions/v1/BrowoKoordinator-Fahrzeuge${endpoint}`;
       
       console.log('🔍 Fetching vehicles from:', url);
       

@@ -23,7 +23,7 @@ import { VehicleMaintenanceDialog, type Maintenance } from '../../components/Bro
 import { toast } from 'sonner@2.0.3';
 import { format } from 'date-fns';
 import { de } from 'date-fns/locale';
-import { projectId, publicAnonKey } from '../../utils/supabase/info';
+import { supabaseUrl, publicAnonKey } from '../../utils/supabase/info';
 
 interface Equipment {
   id: string;
@@ -160,7 +160,7 @@ export default function VehicleDetailScreen() {
     
     setLoadingDocs(true);
     try {
-      const url = `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Fahrzeuge/api/vehicles/${vehicleId}/documents`;
+      const url = `${supabaseUrl}/functions/v1/BrowoKoordinator-Fahrzeuge/api/vehicles/${vehicleId}/documents`;
       const response = await fetch(url, {
         headers: {
           'Authorization': `Bearer ${publicAnonKey}`,
@@ -187,7 +187,7 @@ export default function VehicleDetailScreen() {
     
     setLoadingMaintenances(true);
     try {
-      const url = `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Fahrzeuge/api/vehicles/${vehicleId}/maintenances`;
+      const url = `${supabaseUrl}/functions/v1/BrowoKoordinator-Fahrzeuge/api/vehicles/${vehicleId}/maintenances`;
       const response = await fetch(url, {
         headers: {
           'Authorization': `Bearer ${publicAnonKey}`,
@@ -311,7 +311,7 @@ export default function VehicleDetailScreen() {
     if (!vehicleId || !confirm('Möchten Sie dieses Dokument wirklich löschen?')) return;
     
     try {
-      const url = `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Fahrzeuge/api/vehicles/${vehicleId}/documents/${docId}`;
+      const url = `${supabaseUrl}/functions/v1/BrowoKoordinator-Fahrzeuge/api/vehicles/${vehicleId}/documents/${docId}`;
       const response = await fetch(url, {
         method: 'DELETE',
         headers: {
@@ -339,7 +339,7 @@ export default function VehicleDetailScreen() {
     if (!vehicleId || !confirm('Möchten Sie diese Wartung wirklich löschen?')) return;
     
     try {
-      const url = `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Fahrzeuge/api/vehicles/${vehicleId}/maintenances/${maintId}`;
+      const url = `${supabaseUrl}/functions/v1/BrowoKoordinator-Fahrzeuge/api/vehicles/${vehicleId}/maintenances/${maintId}`;
       const response = await fetch(url, {
         method: 'DELETE',
         headers: {
@@ -407,7 +407,7 @@ export default function VehicleDetailScreen() {
     if (!vehicleId) return;
     
     try {
-      const url = `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Fahrzeuge/api/vehicles/${vehicleId}/statistics${selectedMonth ? `?month=${selectedMonth}` : ''}`;
+      const url = `${supabaseUrl}/functions/v1/BrowoKoordinator-Fahrzeuge/api/vehicles/${vehicleId}/statistics${selectedMonth ? `?month=${selectedMonth}` : ''}`;
       const response = await fetch(url, {
         headers: {
           'Authorization': `Bearer ${publicAnonKey}`,
@@ -438,7 +438,7 @@ export default function VehicleDetailScreen() {
   
   const loadCustomColumns = async () => {
     try {
-      const url = `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Fahrzeuge/api/statistics/columns`;
+      const url = `${supabaseUrl}/functions/v1/BrowoKoordinator-Fahrzeuge/api/statistics/columns`;
       const response = await fetch(url, {
         headers: {
           'Authorization': `Bearer ${publicAnonKey}`,
@@ -468,7 +468,7 @@ export default function VehicleDetailScreen() {
     const currentMonth = format(new Date(), 'yyyy-MM');
     
     try {
-      const url = `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Fahrzeuge/api/vehicles/${vehicleId}/statistics`;
+      const url = `${supabaseUrl}/functions/v1/BrowoKoordinator-Fahrzeuge/api/vehicles/${vehicleId}/statistics`;
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -505,7 +505,7 @@ export default function VehicleDetailScreen() {
     }
     
     try {
-      const url = `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Fahrzeuge/api/vehicles/${vehicleId}/statistics/${statId}`;
+      const url = `${supabaseUrl}/functions/v1/BrowoKoordinator-Fahrzeuge/api/vehicles/${vehicleId}/statistics/${statId}`;
       const response = await fetch(url, {
         method: 'DELETE',
         headers: {
@@ -578,7 +578,7 @@ export default function VehicleDetailScreen() {
         };
       }
       
-      const url = `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Fahrzeuge/api/vehicles/${vehicleId}/statistics/${statId}`;
+      const url = `${supabaseUrl}/functions/v1/BrowoKoordinator-Fahrzeuge/api/vehicles/${vehicleId}/statistics/${statId}`;
       const response = await fetch(url, {
         method: 'PUT',
         headers: {
@@ -612,7 +612,7 @@ export default function VehicleDetailScreen() {
     }
     
     try {
-      const url = `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Fahrzeuge/api/statistics/columns`;
+      const url = `${supabaseUrl}/functions/v1/BrowoKoordinator-Fahrzeuge/api/statistics/columns`;
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -650,7 +650,7 @@ export default function VehicleDetailScreen() {
     }
     
     try {
-      const url = `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Fahrzeuge/api/statistics/columns/${columnId}`;
+      const url = `${supabaseUrl}/functions/v1/BrowoKoordinator-Fahrzeuge/api/statistics/columns/${columnId}`;
       const response = await fetch(url, {
         method: 'DELETE',
         headers: {
@@ -1649,7 +1649,7 @@ export default function VehicleDetailScreen() {
                           <strong>Endpoint:</strong> POST /api/vehicles/{`{vehicleId}`}/statistics
                         </p>
                         <p className="text-xs text-blue-800 mb-2">
-                          <strong>URL:</strong> https://{projectId}.supabase.co/functions/v1/BrowoKoordinator-Fahrzeuge/api/vehicles/{vehicleId}/statistics
+                          <strong>URL:</strong> {supabaseUrl}/functions/v1/BrowoKoordinator-Fahrzeuge/api/vehicles/{vehicleId}/statistics
                         </p>
                         <p className="font-mono text-xs bg-white p-2 rounded border border-blue-300">
                           {`{\n  "month": "2024-11",\n  "verbrauchskosten": 250.00,\n  "wartungskosten": 180.00,\n  "sonstige_kosten": 50.00\n}`}

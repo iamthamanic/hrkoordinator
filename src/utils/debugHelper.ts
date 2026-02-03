@@ -99,9 +99,9 @@ export function safeStringify(obj: any, indent?: number): string {
 /**
  * Test if Supabase is reachable
  */
-export async function testSupabaseConnection(projectId: string): Promise<boolean> {
+export async function testSupabaseConnection(supabaseBaseUrl: string): Promise<boolean> {
   try {
-    const response = await fetch(`https://${projectId}.supabase.co/auth/v1/health`, {
+    const response = await fetch(`${supabaseBaseUrl}/auth/v1/health`, {
       method: 'GET',
       signal: AbortSignal.timeout(5000), // 5 second timeout
     });

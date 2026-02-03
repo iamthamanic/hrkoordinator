@@ -10,7 +10,7 @@
 import { useEffect, useState } from 'react';
 import { useGamificationStore } from '../stores/gamificationStore';
 import { useAuthStore } from '../stores/BrowoKo_authStore';
-import { projectId, publicAnonKey } from '../utils/supabase/info';
+import { supabaseUrl, publicAnonKey } from '../utils/supabase/info';
 
 export function useDashboardStats() {
   const { user, profile } = useAuthStore();
@@ -31,7 +31,7 @@ export function useDashboardStats() {
         // Load tasks statistics
         const accessToken = (await user.getIdToken?.()) || publicAnonKey;
         const tasksResponse = await fetch(
-          `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Tasks/my-tasks`,
+          `${supabaseUrl}/functions/v1/BrowoKoordinator-Tasks/my-tasks`,
           {
             headers: {
               'Authorization': `Bearer ${accessToken}`,

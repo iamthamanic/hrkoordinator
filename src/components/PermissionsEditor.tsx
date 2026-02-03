@@ -8,7 +8,7 @@ import { usePermissions, UserRole } from '../hooks/usePermissions';
 import { getPermissionsByCategory, type PermissionKey } from '../config/permissions';
 import { toast } from 'sonner@2.0.3';
 import { supabase } from '../utils/supabase/client';
-import { projectId } from '../utils/supabase/info';
+import { supabaseUrl } from '../utils/supabase/info';
 
 interface PermissionOverride {
   permission_key: string;
@@ -67,7 +67,7 @@ export default function PermissionsEditor({
         throw new Error('Not authenticated');
       }
 
-      const url = `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Server/api/users/${userId}/permissions`;
+      const url = `${supabaseUrl}/functions/v1/BrowoKoordinator-Server/api/users/${userId}/permissions`;
       
       const response = await fetch(url, {
         method: 'GET',
@@ -144,7 +144,7 @@ export default function PermissionsEditor({
         throw new Error('Not authenticated');
       }
 
-      const url = `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Server/api/users/${userId}/permissions`;
+      const url = `${supabaseUrl}/functions/v1/BrowoKoordinator-Server/api/users/${userId}/permissions`;
       
       const response = await fetch(url, {
         method: 'PUT',

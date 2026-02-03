@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# Environment (enthält Supabase-Anon-Key – nicht pushen!)
+.env
+.env.local
+.env.*.local
+
+# Build
+build/
+dist/
+
+# IDE / OS
+.DS_Store
+*.log
+.idea/
+.vscode/
+
+# Vite
+*.local

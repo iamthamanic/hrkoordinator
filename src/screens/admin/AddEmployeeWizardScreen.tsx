@@ -13,7 +13,7 @@ import { Button } from '../../components/ui/button';
 import { Card, CardContent } from '../../components/ui/card';
 import { Alert, AlertDescription } from '../../components/ui/alert';
 import { toast } from 'sonner@2.0.3';
-import { projectId, publicAnonKey } from '../../utils/supabase/info';
+import { supabaseUrl, publicAnonKey } from '../../utils/supabase/info';
 import sanitize from '../../utils/security/BrowoKo_sanitization';
 
 // Import Step Components
@@ -302,7 +302,7 @@ export default function AddEmployeeWizardScreen() {
         for (const workflowId of formData.assigned_workflows) {
           try {
             const response = await fetch(
-              `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Workflows/workflows/${workflowId}/execute`,
+              `${supabaseUrl}/functions/v1/BrowoKoordinator-Workflows/workflows/${workflowId}/execute`,
               {
                 method: 'POST',
                 headers: {

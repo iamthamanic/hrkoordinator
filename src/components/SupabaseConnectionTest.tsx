@@ -5,7 +5,7 @@
 
 import { useState, useEffect } from 'react';
 import { supabase } from '../utils/supabase/client';
-import { projectId, publicAnonKey } from '../utils/supabase/info';
+import { supabaseUrl, publicAnonKey } from '../utils/supabase/info';
 
 interface ConnectionTestResult {
   step: string;
@@ -28,7 +28,7 @@ export default function SupabaseConnectionTest() {
       status: supabase ? 'success' : 'error',
       message: supabase ? 'Client initialisiert' : 'Client NICHT initialisiert!',
       details: {
-        url: `https://${projectId}.supabase.co`,
+        url: supabaseUrl,
         hasAuth: !!supabase?.auth,
         hasFrom: typeof supabase?.from === 'function',
       },
@@ -38,10 +38,10 @@ export default function SupabaseConnectionTest() {
     // TEST 2: Supabase URL & Keys
     testResults.push({
       step: '2. API Keys',
-      status: projectId && publicAnonKey ? 'success' : 'error',
-      message: projectId && publicAnonKey ? 'Keys vorhanden' : 'Keys FEHLEN!',
+      status: supabaseUrl && publicAnonKey ? 'success' : 'error',
+      message: supabaseUrl && publicAnonKey ? 'Keys vorhanden' : 'Keys FEHLEN!',
       details: {
-        projectId: projectId || 'FEHLT!',
+        supabaseUrl: supabaseUrl || 'FEHLT!',
         anonKeyLength: publicAnonKey?.length || 0,
       },
     });

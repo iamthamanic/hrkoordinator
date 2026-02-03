@@ -30,7 +30,7 @@ import { ApiService } from './base/ApiService';
 import { AuthenticationError, ValidationError, NotFoundError } from './base/ApiError';
 import type { User as AuthUser, Session } from '@supabase/supabase-js';
 import type { User, UserWithAvatar, Organization } from '../types/database';
-import { projectId, publicAnonKey } from '../utils/supabase/info';
+import { supabaseUrl, publicAnonKey } from '../utils/supabase/info';
 
 /**
  * SIGN IN RESPONSE
@@ -522,7 +522,7 @@ export class AuthService extends ApiService {
       }
 
       // Call the BrowoKoordinator-Server API
-      const url = `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Server/api/me/permissions`;
+      const url = `${supabaseUrl}/functions/v1/BrowoKoordinator-Server/api/me/permissions`;
       
       const response = await fetch(url, {
         method: 'GET',

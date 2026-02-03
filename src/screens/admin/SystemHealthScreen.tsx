@@ -31,7 +31,7 @@ import {
   ChevronUp
 } from '../../components/icons/BrowoKoIcons';
 import { toast } from 'sonner@2.0.3';
-import { projectId, publicAnonKey } from '../../utils/supabase/info';
+import { supabaseUrl, publicAnonKey } from '../../utils/supabase/info';
 import { formatDistanceToNow, format } from 'date-fns';
 import { de } from 'date-fns/locale';
 
@@ -128,7 +128,7 @@ export default function SystemHealthScreen() {
   // Health Check für eine einzelne Function
   const checkFunctionHealth = useCallback(async (functionName: string): Promise<Partial<EdgeFunctionStatus>> => {
     const startTime = Date.now();
-    const url = `https://${projectId}.supabase.co/functions/v1/${functionName}/health`;
+    const url = `${supabaseUrl}/functions/v1/${functionName}/health`;
     
     try {
       const response = await fetch(url, {

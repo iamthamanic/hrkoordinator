@@ -14,7 +14,7 @@ import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../ui/collapsible';
 import { ChevronDown, Building2, MapPin, UserCog, RefreshCw, Database } from 'lucide-react';
-import { projectId } from '../../utils/supabase/info';
+import { supabaseUrl } from '../../utils/supabase/info';
 import { getAuthHeaders } from '../../utils/authHelpers';
 
 interface TriggerConfigFormProps {
@@ -70,7 +70,7 @@ export function TriggerConfigForm({ node, config, updateConfig }: TriggerConfigF
       console.log('🏥 Checking if server is alive...');
       try {
         const healthResponse = await fetch(
-          `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Server/health`
+          `${supabaseUrl}/functions/v1/BrowoKoordinator-Server/health`
         );
         console.log('🏥 Health check status:', healthResponse.status);
         if (!healthResponse.ok) {
@@ -85,7 +85,7 @@ export function TriggerConfigForm({ node, config, updateConfig }: TriggerConfigF
       
       // Load Departments
       const deptResponse = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Server/api/departments`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-Server/api/departments`,
         { headers }
       );
       
@@ -111,7 +111,7 @@ export function TriggerConfigForm({ node, config, updateConfig }: TriggerConfigF
       
       // Load Locations
       const locResponse = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Server/api/locations`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-Server/api/locations`,
         { headers }
       );
       
@@ -125,7 +125,7 @@ export function TriggerConfigForm({ node, config, updateConfig }: TriggerConfigF
       
       // Load Roles
       const roleResponse = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Server/api/roles`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-Server/api/roles`,
         { headers }
       );
       
@@ -154,7 +154,7 @@ export function TriggerConfigForm({ node, config, updateConfig }: TriggerConfigF
       console.log('🌱 Auto-seeding entities...');
       const headers = await getAuthHeaders();
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Server/api/seed-entities`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-Server/api/seed-entities`,
         {
           method: 'POST',
           headers

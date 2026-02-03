@@ -139,7 +139,7 @@ export const useAdminStore = create<AdminState>((set, get) => ({
       }
 
       // Import projectId and publicAnonKey
-      const { projectId, publicAnonKey } = await import('../utils/supabase/info');
+      const { supabaseUrl, publicAnonKey } = await import('../utils/supabase/info');
 
       console.log('🔗 Sending request to server...');
 
@@ -148,7 +148,7 @@ export const useAdminStore = create<AdminState>((set, get) => ({
       const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
 
       try {
-        const url = `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Server/users/create`;
+        const url = `${supabaseUrl}/functions/v1/BrowoKoordinator-Server/users/create`;
         console.log('🌐 Request URL:', url);
         console.log('🔑 Using auth token:', publicAnonKey.substring(0, 20) + '...');
         

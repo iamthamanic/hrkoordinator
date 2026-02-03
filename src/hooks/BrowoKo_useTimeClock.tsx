@@ -8,7 +8,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '../utils/supabase/client';
-import { projectId } from '../utils/supabase/info';
+import { supabaseUrl } from '../utils/supabase/info';
 import { toast } from 'sonner@2.0.3';
 
 interface TimeRecord {
@@ -55,7 +55,7 @@ export function useTimeClock() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [filter, setFilter] = useState<'today' | 'week' | 'month'>('today');
 
-  const apiUrl = `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Zeiterfassung`;
+  const apiUrl = `${supabaseUrl}/functions/v1/BrowoKoordinator-Zeiterfassung`;
 
   // Helper to get auth token
   const getAuthToken = useCallback(async () => {

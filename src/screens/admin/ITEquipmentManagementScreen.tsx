@@ -16,7 +16,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogT
 import { Label } from '../../components/ui/label';
 import { toast } from 'sonner@2.0.3';
 
-import { projectId, publicAnonKey } from '../../utils/supabase/info';
+import { supabaseUrl, publicAnonKey } from '../../utils/supabase/info';
 
 interface ITEquipment {
   id: string;
@@ -88,7 +88,7 @@ export default function ITEquipmentManagementScreen() {
   const fetchEquipment = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Server/it-equipment`, {
+      const response = await fetch(`${supabaseUrl}/functions/v1/BrowoKoordinator-Server/it-equipment`, {
         headers: {
           'Authorization': `Bearer ${publicAnonKey}`,
         }
@@ -120,7 +120,7 @@ export default function ITEquipmentManagementScreen() {
   
   const saveEquipmentToDB = async (item: ITEquipment) => {
      try {
-        await fetch(`https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Server/it-equipment`, {
+        await fetch(`${supabaseUrl}/functions/v1/BrowoKoordinator-Server/it-equipment`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -169,7 +169,7 @@ export default function ITEquipmentManagementScreen() {
       setEquipment(updated);
       
       try {
-         await fetch(`https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Server/it-equipment/${id}`, {
+         await fetch(`${supabaseUrl}/functions/v1/BrowoKoordinator-Server/it-equipment/${id}`, {
            method: 'DELETE',
            headers: {
              'Authorization': `Bearer ${publicAnonKey}`,

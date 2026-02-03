@@ -11,7 +11,7 @@ import { Play, Clock, User, GraduationCap, ShoppingCart, CheckSquare, FileText, 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select';
 import { Label } from '../../ui/label';
 import { Textarea } from '../../ui/textarea';
-import { projectId, publicAnonKey } from '../../../utils/supabase/info';
+import { supabaseUrl, publicAnonKey } from '../../../utils/supabase/info';
 
 // ==================== TRIGGER TYPE DEFINITIONS ====================
 
@@ -146,11 +146,11 @@ export default memo(({ id, data, selected }: { id: string; data: any; selected?:
     try {
       let url = '';
       if (config.entityType === 'employees') {
-        url = `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Personalakte/employees`;
+        url = `${supabaseUrl}/functions/v1/BrowoKoordinator-Personalakte/employees`;
       } else if (config.entityType === 'videos') {
-        url = `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Learning/videos`;
+        url = `${supabaseUrl}/functions/v1/BrowoKoordinator-Learning/videos`;
       } else if (config.entityType === 'benefits') {
-        url = `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Shop/benefits`;
+        url = `${supabaseUrl}/functions/v1/BrowoKoordinator-Shop/benefits`;
       }
       
       if (url) {

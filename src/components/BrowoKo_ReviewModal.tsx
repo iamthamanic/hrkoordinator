@@ -32,13 +32,13 @@ import {
   MessageSquare,
 } from 'lucide-react';
 import { toast } from 'sonner';
-import { projectId, publicAnonKey } from '../utils/supabase/info';
+import { supabaseUrl, publicAnonKey } from '../utils/supabase/info';
 import { useAuthStore } from '../stores/BrowoKo_authStore';
 import type { TestSubmission, ReviewComment } from '../types/schemas/BrowoKo_learningSchemas';
 import { BrowoKo_ImageCommentTool } from './BrowoKo_ImageCommentTool';
 import { BrowoKo_VideoCommentTool } from './BrowoKo_VideoCommentTool';
 
-const API_URL = `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Server`;
+const API_URL = `${supabaseUrl}/functions/v1/BrowoKoordinator-Server`;
 
 interface ReviewModalProps {
   isOpen: boolean;

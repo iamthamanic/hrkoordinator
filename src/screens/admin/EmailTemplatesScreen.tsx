@@ -12,7 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../..
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '../../components/ui/dialog';
 import { Badge } from '../../components/ui/badge';
 import { toast } from 'sonner@2.0.3';
-import { projectId, publicAnonKey } from '../../utils/supabase/info';
+import { supabaseUrl, publicAnonKey } from '../../utils/supabase/info';
 import RichTextEditor from '../../components/email-templates/RichTextEditor';
 import TemplatePreview from '../../components/email-templates/TemplatePreview';
 
@@ -77,7 +77,7 @@ export default function EmailTemplatesScreen() {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-EmailTemplates/templates`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-EmailTemplates/templates`,
         {
           headers: {
             'Authorization': `Bearer ${publicAnonKey}`,
@@ -117,7 +117,7 @@ export default function EmailTemplatesScreen() {
       };
 
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-EmailTemplates/templates`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-EmailTemplates/templates`,
         {
           method: 'POST',
           headers: {
@@ -156,7 +156,7 @@ export default function EmailTemplatesScreen() {
       };
 
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-EmailTemplates/templates/${selectedTemplate.id}`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-EmailTemplates/templates/${selectedTemplate.id}`,
         {
           method: 'PUT',
           headers: {
@@ -185,7 +185,7 @@ export default function EmailTemplatesScreen() {
 
     try {
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-EmailTemplates/templates/${template.id}`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-EmailTemplates/templates/${template.id}`,
         {
           method: 'DELETE',
           headers: {

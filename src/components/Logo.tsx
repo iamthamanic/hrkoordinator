@@ -1,5 +1,8 @@
-import logoImage from 'figma:asset/5218c77a6c85486efc0c8140c04aa2e0705a9753.png';
-import iconImage from 'figma:asset/977ce9b38176278196339fab0cfdee728f38c4d1.png';
+/**
+ * Logo – Browo Koordinator
+ * Zeigt das Logo-Bild (und optional Text). Nutzt /logo.png aus public/ für zuverlässige Auslieferung.
+ */
+const LOGO_SRC = '/logo.png';
 
 interface LogoProps {
   size?: 'sm' | 'md' | 'lg';
@@ -7,21 +10,31 @@ interface LogoProps {
 }
 
 export default function Logo({ size = 'md', showText = true }: LogoProps) {
-  // Sizes for the logo image
-  const imageSizes = {
-    sm: 'h-10',    // 40px height, auto width - optimal für Top Navbar
-    md: 'h-12',    // 48px height, auto width
-    lg: 'h-16',    // 64px height, auto width
+  const imageHeights = {
+    sm: 'h-10',
+    md: 'h-12',
+    lg: 'h-16',
+  };
+  const textSizes = {
+    sm: 'text-lg',
+    md: 'text-xl',
+    lg: 'text-2xl',
   };
 
   return (
-    <div className="flex items-center gap-2">
-      {/* Logo Image - Browo Koordinator */}
-      <img 
-        src={logoImage} 
-        alt="Browo Koordinator Logo" 
-        className={`${imageSizes[size]} object-contain`}
+    <div className="flex items-center justify-center gap-3">
+      <img
+        src={LOGO_SRC}
+        alt="Browo Koordinator"
+        className={`${imageHeights[size]} w-auto max-w-[200px] object-contain object-center flex-shrink-0`}
+        loading="eager"
+        decoding="async"
       />
+      {showText && (
+        <span className={`font-semibold text-[#101828] ${textSizes[size]} whitespace-nowrap`}>
+          Browo Koordinator
+        </span>
+      )}
     </div>
   );
 }

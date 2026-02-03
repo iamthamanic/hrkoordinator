@@ -8,7 +8,7 @@
  */
 
 import { supabase } from '../utils/supabase/client';
-import { projectId } from '../utils/supabase/info';
+import { supabaseUrl } from '../utils/supabase/info';
 import type { Document } from '../types/database';
 
 export interface CreateDocumentData {
@@ -45,7 +45,6 @@ export class DocumentService {
 
   constructor() {
     // Edge Function Base URL (new architecture without /make-server-f659121d)
-    const supabaseUrl = `https://${projectId}.supabase.co`;
     this.baseUrl = `${supabaseUrl}/functions/v1/BrowoKoordinator-Dokumente`;
   }
 

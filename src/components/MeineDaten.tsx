@@ -8,7 +8,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../utils/supabase/client';
-import { projectId, publicAnonKey } from '../utils/supabase/info';
+import { supabaseUrl, publicAnonKey } from '../utils/supabase/info';
 import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
@@ -244,7 +244,7 @@ export default function MeineDaten() {
       formData.append('userId', user.id);
 
       const uploadResponse = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Server/documents/upload`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-Server/documents/upload`,
         {
           method: 'POST',
           headers: {

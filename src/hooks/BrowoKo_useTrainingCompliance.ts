@@ -7,7 +7,7 @@
 
 import { useState, useCallback } from 'react';
 import { toast } from 'sonner';
-import { projectId, publicAnonKey } from '../utils/supabase/info';
+import { projectId, supabaseUrl, publicAnonKey } from '../utils/supabase/info';
 
 interface VideoProgressData {
   video_id: string;
@@ -114,7 +114,7 @@ export function useBrowoKo_TrainingCompliance() {
       console.log('[TrainingCompliance] Fetching videos progress with token:', token.substring(0, 20) + '...');
       
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Lernen/training-progress/videos`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-Lernen/training-progress/videos`,
         {
           method: 'GET',
           headers: {
@@ -188,7 +188,7 @@ export function useBrowoKo_TrainingCompliance() {
       console.log('[TrainingCompliance] Fetching tests progress with token:', token.substring(0, 20) + '...');
       
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Lernen/training-progress/tests`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-Lernen/training-progress/tests`,
         {
           method: 'GET',
           headers: {
@@ -262,7 +262,7 @@ export function useBrowoKo_TrainingCompliance() {
       console.log('[TrainingCompliance] Fetching external trainings with token:', token.substring(0, 20) + '...');
       
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Lernen/external-trainings`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-Lernen/external-trainings`,
         {
           method: 'GET',
           headers: {
@@ -305,7 +305,7 @@ export function useBrowoKo_TrainingCompliance() {
   const deleteExternalTraining = useCallback(async (trainingId: string) => {
     try {
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Lernen/external-trainings/${trainingId}`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-Lernen/external-trainings/${trainingId}`,
         {
           method: 'DELETE',
           headers: {

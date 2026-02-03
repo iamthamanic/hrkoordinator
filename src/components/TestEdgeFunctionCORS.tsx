@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { CheckCircle2, XCircle, Loader2, AlertCircle } from 'lucide-react';
-import { projectId, publicAnonKey } from '../utils/supabase/info';
+import { supabaseUrl, publicAnonKey } from '../utils/supabase/info';
 
 export default function TestEdgeFunctionCORS() {
   const [testing, setTesting] = useState(false);
@@ -18,10 +18,10 @@ export default function TestEdgeFunctionCORS() {
 
     try {
       console.log('🧪 Testing Edge Function CORS...');
-      console.log(`📍 URL: https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Server/health`);
+      console.log(`📍 URL: ${supabaseUrl}/functions/v1/BrowoKoordinator-Server/health`);
 
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Server/health`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-Server/health`,
         {
           method: 'GET',
           headers: {
@@ -89,7 +89,7 @@ export default function TestEdgeFunctionCORS() {
       const testPassword = 'TestPassword123!';
 
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Server/users/create`,
+        `${supabaseUrl}/functions/v1/BrowoKoordinator-Server/users/create`,
         {
           method: 'POST',
           headers: {
@@ -258,7 +258,7 @@ export default function TestEdgeFunctionCORS() {
                       🔧 Lösung:
                     </p>
                     <ol className="text-sm text-yellow-800 space-y-1 list-decimal list-inside">
-                      <li>Öffne: https://supabase.com/dashboard/project/{projectId}/functions</li>
+                      <li>Öffne bei Cloud: Supabase Dashboard → Functions</li>
                       <li>Klick auf "make-server-f659121d"</li>
                       <li>Klick auf "Edit function"</li>
                       <li>Kopiere den Code aus /DEPLOY_EDGE_FUNCTION_NOW.md</li>

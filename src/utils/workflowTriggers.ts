@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-import { projectId, publicAnonKey } from './supabase/info';
+import { supabaseUrl, publicAnonKey } from './supabase/info';
 import type { WorkflowTriggerType } from '../types/workflow';
 
 /**
@@ -37,7 +37,7 @@ export async function triggerWorkflow(
     console.log(`🔔 Triggering workflow: ${triggerType}`, context);
     
     const response = await fetch(
-      `https://${projectId}.supabase.co/functions/v1/BrowoKoordinator-Workflows/trigger`,
+      `${supabaseUrl}/functions/v1/BrowoKoordinator-Workflows/trigger`,
       {
         method: 'POST',
         headers: {
