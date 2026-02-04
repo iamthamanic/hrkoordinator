@@ -1,7 +1,7 @@
 
-  # Browo Koordinator
+  # HR Koordinator
 
-  This is a code bundle for Browo Koordinator. The original project is available at https://www.figma.com/design/MBjR8xTzmnXD47CgMEJqHg/Browo-Koordinator.
+  This is a code bundle for HR Koordinator. 
 
   ## Running the code
 
