@@ -776,16 +776,3 @@ Die wichtigsten Verzeichnisse:
 - `src/supabase/functions` fuer Edge Functions
 - `src/supabase/migrations` fuer Datenbank-Migrations
 
-## Warum dieses README so ausfuehrlich ist
-
-Dieses Projekt ist keine kleine Einzel-App, sondern eine Plattform mit vielen miteinander verzahnten Modulen. Das README soll deshalb nicht nur die Anwendung starten helfen, sondern fuer neue Entwickler, Stakeholder oder Betreiber sofort erklaeren:
-
-- welches Problem das Produkt loest
-- welche Rollen es bedient
-- wie die wichtigsten Journeys aussehen
-- welche Module bereits vorhanden sind
-- wo Kernprodukt und wo noch Entwicklungsflaeche ist
-
-## Kurzfazit
-
-HR Koordinator ist eine breit angelegte HR-Operations-Plattform mit starkem Fokus auf Alltagsprozesse statt reinem Stammdatenmanagement. Besonders stark sind heute die Bereiche Personalakte, Zeiterfassung, Kalender, Teamverwaltung, Organigramm, Lernen, Benefits und Gespraeche. Darueber hinaus gibt es bereits fortgeschrittene Automations-, Workflow- und Betriebsbausteine, plus einige sichtbare Entwicklungsbereiche, die noch auf den letzten Schritt Richtung Produktionsreife gebracht werden muessen.
